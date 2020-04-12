@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package mtech.geo_api;
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+option java_package = "kgi.geography_api";
+
+
+
+message LatLng {
+    // The latitude in degrees. It must be in the range [-90.0, +90.0].
+    double lat = 1;
+    // The longitude in degrees. It must be in the range [-180.0, +180.0].
+    double lng = 2;
+}
+
+message Polygon {
+    repeated LatLng vertices = 1;
+}
+
+message Area {
+    string id = 1;
+    repeated Polygon polygons = 2;
+}
+
+service Geography {
+
+    rpc CreateArea (Area) returns (Area);
+    rpc GetAreaByID (google.protobuf.StringValue) returns (Area);
+    rpc UpdateArea (Area) returns (Area);
+    rpc DeleteAreaByID(google.protobuf.StringValue ) returns (google.protobuf.Empty);
+
+}
+
