@@ -21,7 +21,12 @@ message Polygon {
 
 message Area {
     string id = 1;
-    repeated Polygon polygons = 2;
+    Polygon polygon = 2;
+    string name = 3;
+}
+
+message AreasList {
+    repeated Area items = 1;
 }
 
 service Geography {
@@ -30,6 +35,8 @@ service Geography {
     rpc GetAreaByID (google.protobuf.StringValue) returns (Area);
     rpc UpdateArea (Area) returns (Area);
     rpc DeleteAreaByID(google.protobuf.StringValue ) returns (google.protobuf.Empty);
+    rpc FindAreas(google.protobuf.StringValue ) returns (AreasList);
+    rpc FindAreasContaining( LatLng ) returns (AreasList);
 
 }
 
