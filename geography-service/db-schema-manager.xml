@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.kgi</groupId>
+    <artifactId>db-schema-manager</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <prerequisites>
+        <maven>3.6</maven>
+    </prerequisites>
+
+    <properties>
+        <flyway.version>6.2.2</flyway.version>
+        <postgresql.version>42.2.10</postgresql.version>
+        <migration.jdbc-url>jdbc:postgresql://127.0.0.1:5432/set-me</migration.jdbc-url>
+        <migration.db-user>set-user</migration.db-user>
+        <migration.db-password>set-password</migration.db-password>
+        <migration.db-schema>set-schema</migration.db-schema>
+        <project.dir>.</project.dir>
+    </properties>
+
+    <dependencies>
+        
+
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+        
+        <!--		flyway integration-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${flyway.version}</version>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+
+                <configuration>
+                    <url>${migration.jdbc-url}</url>
+                    <user>${migration.db-user}</user>
+                    <password>${migration.db-password}</password>
+                    <schemas>
+                        <schema>${migration.db-schema}</schema>
+                    </schemas>
+                    <locations>
+                        <location>filesystem:${project.dir}/src/db_migrations</location>
+                    </locations>
+
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
+    </build>
+
+</project>

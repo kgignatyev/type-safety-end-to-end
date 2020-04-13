@@ -1,0 +1,14 @@
+postgresqlPassword: admin
+
+service:
+  type: NodePort
+  nodePort: 30303
+
+image:
+  registry: docker.io
+  repository: bitnami/postgresql
+  tag: 12.2.0-debian-10-r64
+
+persistence:
+  mountPath: /bitnami/postgresql12
+

@@ -1,0 +1,37 @@
+grpc:
+  server:
+    port: 6565
+    reflection-service-enabled: true
+  client:
+    geography-grpc-server:
+      address: 'static://orders-v1:6565'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
+
+logging:
+  level:
+    root: "INFO"
+
+
+spring:
+  datasource:
+    name: geograply-data-source
+    url: jdbc:postgresql://${GEOGRAPHY_DBHOST:127.0.0.1}:${GEOGRAPHY_DBPORT:5432}/${GEOGRAPHY_DBNAME:geography}
+    username: ${GEOGRAPHY_DBUSER:postgres}
+    password: ${GEOGRAPHY_DBPASSWORD:admin}
+    platform: postgres
+
+  flyway:
+    enabled: false
+#  cache:
+#    jcache:
+#      config: "classpath:ehcache.xml"
+  aop:
+    auto: true
+    proxy-target-class: true
+
+mybatis:
+  config-location: "classpath:mybatis-config.xml"
+
+
