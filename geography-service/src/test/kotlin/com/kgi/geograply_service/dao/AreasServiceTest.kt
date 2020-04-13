@@ -22,6 +22,8 @@ class AreasServiceTest {
         val timestamp = System.currentTimeMillis().toString()
         val polygon = Polygon( listOf(XY(1.0,1.0),XY(1.0,2.0), XY(2.0,2.0), XY(2.0,1.0)  ,XY(1.0,1.0)))
         val area = geographySvcImpl.create(AreaRecord("r$timestamp", "n$timestamp", polygon ))
+        val foundArea = geographySvcImpl.getAreaByID( area.id!!)
+        Assert.assertNotNull( foundArea )
         val areas = geographySvcImpl.findAreas(timestamp)
         Assert.assertEquals(1, areas.size)
         areas.forEach {

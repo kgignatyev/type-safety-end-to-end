@@ -2,6 +2,7 @@ package com.kgi.geograply_service
 
 import com.google.protobuf.Empty
 import com.google.protobuf.StringValue
+import com.kgi.geograply_service.iam.AuthInterceptor
 import com.kgi.geograply_service.services.GeographySvc
 import io.grpc.stub.StreamObserver
 import kgi.geography_api.GeographyGrpc
@@ -10,7 +11,7 @@ import net.devh.boot.grpc.server.service.GrpcService
 import javax.annotation.Resource
 
 
-@GrpcService()
+@GrpcService( interceptors = [ AuthInterceptor::class ] )
 class GeographyGRPC: GeographyGrpc.GeographyImplBase() {
 
     @Resource
