@@ -19,14 +19,29 @@ message Polygon {
     repeated LatLng vertices = 1;
 }
 
+enum AreaType {
+   TEAM_CONTROL = 0;
+   SERVICE_AREA = 1;
+}
+
 message Area {
     string id = 1;
     Polygon polygon = 2;
     string name = 3;
+    AreaType area_type = 4;
 }
+
+
 
 message AreasList {
     repeated Area items = 1;
+}
+
+message AreaSearchCriteria {
+    oneof criteria {
+      string text = 1;
+      LatLng contains_point = 2;
+    }
 }
 
 service Geography {
@@ -37,6 +52,7 @@ service Geography {
     rpc DeleteAreaByID(google.protobuf.StringValue ) returns (google.protobuf.Empty);
     rpc FindAreas(google.protobuf.StringValue ) returns (AreasList);
     rpc FindAreasContaining( LatLng ) returns (AreasList);
+    rpc FindAreasBy( AreaSearchCriteria ) returns (AreasList);
 
 }
 
