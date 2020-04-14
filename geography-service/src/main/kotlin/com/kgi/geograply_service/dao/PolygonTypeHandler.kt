@@ -16,28 +16,31 @@ import org.postgresql.geometric.PGpolygon;
 class PolygonTypeHandler : TypeHandler<Polygon> {
 
     override fun setParameter(ps: PreparedStatement, i: Int, parameter: Polygon?, jdbcType: JdbcType) {
-        if (parameter != null) {
+        if (parameter != null && parameter.vertices.isNotEmpty()) {
             val pgPoly = PGpolygon(parameter.vertices.map { PGpoint(it.x, it.y) }.toTypedArray())
             ps.setObject(i, pgPoly)
         } else {
-            ps.setNull(i, JdbcType.OTHER.TYPE_CODE)
+            ps.setObject(i, PGpolygon(arrayOf(PGpoint(0.1,0.1),PGpoint(0.1,0.2),PGpoint(0.2,0.2),PGpoint(0.1,0.2),PGpoint(0.1,0.1))))//we must not get here it is invalid
         }
     }
 
     override fun getResult(rs: ResultSet, columnName: String): Polygon? {
-        return toPolygon(rs.getObject(columnName) as PGpolygon)
+        return toPolygon(rs.getObject(columnName) )
     }
 
-    private fun toPolygon(pGpolygon: PGpolygon?): Polygon? {
-        if (pGpolygon == null) return null
-        return Polygon(pGpolygon.points.map { p -> XY(p.x, p.x) })
+    private fun toPolygon(pGpolygon: Any): Polygon? {
+       return  when( pGpolygon ){
+            is PGpolygon -> Polygon(pGpolygon.points.map { p -> XY(p.x, p.y) })
+            else ->Polygon(listOf())
+        }
+
     }
 
     override fun getResult(rs: ResultSet, columnIndex: Int): Polygon? {
-        return toPolygon(rs.getObject(columnIndex) as PGpolygon)
+        return toPolygon(rs.getObject(columnIndex))
     }
 
     override fun getResult(cs: CallableStatement, columnIndex: Int): Polygon? {
-        return toPolygon(cs.getObject(columnIndex) as PGpolygon)
+        return toPolygon(cs.getObject(columnIndex) )
     }
 }
