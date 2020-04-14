@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>Areas</h2>
+  </div>
+</div>
+
+<div class="row">
+        <div class="offset-7 col-md-2">
+          <a class="btn btn-primary" [routerLink]="['/areas/new']">New</a>
+        </div>
+</div>
+
+<div class="row" *ngFor="let a of areas">
+  <div class="col-md-4">
+    <a class="nav-link" [routerLink]="['/areas', a.getId()]">{{a.getId()}}</a>
+  </div>
+  <div class="col-md-3">
+    {{a.getName()}}
+  </div>
+</div>
