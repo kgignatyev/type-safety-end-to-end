@@ -20,7 +20,8 @@ class PolygonTypeHandler : TypeHandler<Polygon> {
             val pgPoly = PGpolygon(parameter.vertices.map { PGpoint(it.x, it.y) }.toTypedArray())
             ps.setObject(i, pgPoly)
         } else {
-            ps.setObject(i, PGpolygon(arrayOf(PGpoint(0.1,0.1),PGpoint(0.1,0.2),PGpoint(0.2,0.2),PGpoint(0.1,0.2),PGpoint(0.1,0.1))))//we must not get here it is invalid
+            //we must not get here it is invalid
+            ps.setObject(i, PGpolygon(arrayOf(PGpoint(0.1,0.1),PGpoint(0.1,0.2),PGpoint(0.2,0.2),PGpoint(0.1,0.2),PGpoint(0.1,0.1))))
         }
     }
 

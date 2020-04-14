@@ -37,7 +37,7 @@ export class AreaComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscribeToRouteParams();
-    window['angularComponentReference'] = { component: this, zone: this.ngZone, readNewPath: () => this.getPaths(), };
+    window['angularComponentReference'] = { component: this, zone: this.ngZone, readNewPath: () => this.updatePolygonPaths(), };
 
   }
 
@@ -88,10 +88,10 @@ export class AreaComponent implements OnInit, OnDestroy {
       window['angularComponentReference'].zone.run(() => { window['angularComponentReference'].readNewPath(); });
       console.log('coordinates_changed:');
     });
-
+    this.updatePolygonPaths();
   }
 
-  getPaths():Array<LatLng> {
+  updatePolygonPaths():Array<LatLng> {
     console.log("get path");
     let path:Array<LatLng> = [];
     if (this.polygon) {
@@ -214,7 +214,7 @@ export class AreaComponent implements OnInit, OnDestroy {
 
   polyPathsChange($event: any) {
     console.info($event)
-    console.info(this.getPaths())
+    console.info(this.updatePolygonPaths())
   }
 }
 

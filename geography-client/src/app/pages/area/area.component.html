@@ -21,12 +21,12 @@
               (ngModelChange)="area?.setName( $event.toString() )" />
       </div>
     </div>
-    <div class="row">
-            <div class="col-md-12">
-             map poly:
-              <span *ngFor="let p of agmPolyPaths"> ({{p.lat}},{{p.lng}})</span>
-            </div>
-    </div>
+<!--    <div class="row">-->
+<!--            <div class="col-md-12">-->
+<!--             map poly:-->
+<!--              <span *ngFor="let p of agmPolyPaths"> ({{p.lat}},{{p.lng}})</span>-->
+<!--            </div>-->
+<!--    </div>-->
     <div class="row">
     <div class="col-md-12">
       <agm-map #agmMap

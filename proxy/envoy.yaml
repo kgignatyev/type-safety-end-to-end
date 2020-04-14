@@ -1,0 +1,51 @@
+admin:
+  access_log_path: /tmp/admin_access.log
+  address:
+    socket_address: { address: 127.0.0.1, port_value: 9901 }
+
+static_resources:
+  listeners:
+    - name: listener_0
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 8080
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.http_connection_manager
+              config:
+                codec_type: auto
+                stat_prefix: ingress_http
+                route_config:
+                  name: geography_service
+                  virtual_hosts:
+                    - name: geography_service
+                      domains:
+                      - "*"
+                      cors:
+                        allow_origin_string_match:
+                          safe_regex:
+                            google_re2: {}
+                            regex: \*
+                        allow_methods: "GET, PUT, DELETE, POST, PATCH, OPTIONS"
+                        allow_headers: "cid, authorization, keep-alive, user-agent, cache-control, content-type, content-transfer-encoding, x-accept-content-transfer-encoding, x-accept-response-streaming, x-user-agent, x-grpc-web, referer"
+                        expose_headers: "grpc-status, grpc-message, x-envoy-upstream-service-time"
+                      routes:
+                        - match:
+                            prefix: "/"
+                          route:
+                            cluster: geography_service
+                http_filters:
+                  - name: envoy.filters.http.cors
+                  - name: envoy.filters.http.grpc_web
+                  - name: envoy.filters.http.router
+  clusters:
+    - name: geography_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      http2_protocol_options: {}
+      lb_policy: round_robin
+      hosts:
+        - socket_address:
+            address: localhost
+            port_value: 6565

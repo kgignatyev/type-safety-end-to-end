@@ -8,7 +8,8 @@ export class ConfigurationService {
   constructor() { }
 
   getGeographyServiceURL():string {
-    return "http://localhost:7000";
+    // return "http://localhost:7000"; //goproxy
+    return "http://localhost:8080";//envoy
   }
 
   getAuth0Config(): Auth0Config {
