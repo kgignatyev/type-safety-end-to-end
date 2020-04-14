@@ -1,7 +1,7 @@
 import {Component, Input, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GeographyService} from "../../services/geography.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Area, LatLng} from "@kgi/geograply-interface/geography_pb";
+import {Area, LatLng, Polygon} from "@kgi/geograply-interface/geography_pb";
 import {Subscription} from "rxjs";
 import {LatLngLiteral, PolygonOptions} from "@agm/core/services/google-maps-types";
 import {AgmMap} from "@agm/core";
@@ -104,7 +104,9 @@ export class AreaComponent implements OnInit, OnDestroy {
         path.push(p);
       });
     }
-    this.area.getPolygon().setVerticesList( path )
+    const poly = new Polygon()
+    poly.setVerticesList( path );
+    this.area.setPolygon(poly )
     return path
   }
 
@@ -199,10 +201,11 @@ export class AreaComponent implements OnInit, OnDestroy {
       polygon.setPath( vertices );
       polygon.setEditable(true);
       polygon.setMap( this.map);
+
       if (vertices.length > 0) {
-        const newCenter = vertices[0]
-        this.centerLng = newCenter.lng;
-        this.centerLat = newCenter.lat;
+        const cetroid = this.geographySvc.getCentroidFor(  this.area.getPolygon() )
+        this.centerLng = cetroid.getLng();
+        this.centerLat = cetroid.getLat();
       }
       // this.polygon = polygon
       //
