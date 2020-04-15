@@ -15,7 +15,7 @@ export class AuthService {
   private userProfileSubject$ = new BehaviorSubject<any>(null);
   userProfile$ = this.userProfileSubject$.asObservable();
   // Create a local property for login status
-  loggedIn: boolean = null;
+
   // Create an observable of Auth0 instance of client
   auth0Client$:Observable<Auth0Client> ;
   // Define observables for SDK methods that return promises by default
@@ -27,6 +27,11 @@ export class AuthService {
   private auth0config: Auth0Config;
   tokenSubscription: Subscription;
   jwt: string;
+
+
+  loggedIn(): boolean {
+    return this.jwt != null;
+  };
 
 
   constructor(private router: Router, public configService:ConfigurationService) {
@@ -48,10 +53,10 @@ export class AuthService {
     this.isAuthenticated$ = this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.isAuthenticated())),
       tap(res => {
-        this.loggedIn = res
+        // this.loggedIn = res
         if( this.loggedIn ){
 
-          // client.getTokenSilently(options)
+           // this.getTokenSilently(options)
         }
       })
     );
@@ -163,7 +168,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: "YOUR_CLIENT_ID",
+        client_id: this.auth0config.clientId,
         returnTo: `${window.location.origin}`
       });
     });

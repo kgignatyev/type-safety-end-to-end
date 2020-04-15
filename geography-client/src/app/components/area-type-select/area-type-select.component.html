@@ -1,0 +1,5 @@
+<select  (ngModelChange)="setAreaType($event)" [ngModel]="getAreaType()" >
+  <option *ngFor="let k of keys" [value]="k" >
+    {{k}}
+  </option>
+</select>

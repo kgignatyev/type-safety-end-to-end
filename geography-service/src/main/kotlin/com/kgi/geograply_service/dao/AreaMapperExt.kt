@@ -1,8 +1,10 @@
 package com.kgi.geograply_service.dao
 
+import com.kgi.geograply_service.dao.AreaDynamicSqlSupport.AreasTable.area_type
 import com.kgi.geograply_service.dao.AreaDynamicSqlSupport.AreasTable.id
 import com.kgi.geograply_service.dao.AreaDynamicSqlSupport.AreasTable.name
 import com.kgi.geograply_service.dao.AreaDynamicSqlSupport.AreasTable.polygon
+import kgi.geography_api.GeographyOuterClass
 import org.mybatis.dynamic.sql.AbstractSingleValueCondition
 import org.mybatis.dynamic.sql.SqlBuilder.*
 import org.mybatis.dynamic.sql.VisitableCondition
@@ -10,13 +12,14 @@ import org.mybatis.dynamic.sql.util.kotlin.*
 import org.mybatis.dynamic.sql.util.kotlin.mybatis3.*
 import java.util.function.Supplier
 
-private val columnList = listOf(id, name, polygon )
+private val columnList = listOf(id, name, polygon, area_type )
 
 fun AreaMapper.insert(record: AreaRecord) =
         insert(this::insert, record, AreaDynamicSqlSupport.AreasTable) {
             map(id).toProperty("id")
             map(name).toProperty("name")
             map(polygon).toProperty("polygon")
+            map(area_type).toProperty("areaType")
         }
 
 
@@ -38,6 +41,7 @@ fun AreaMapper.deleteByPrimaryKey(id_: String) =
 fun AreaMapper.updateByPrimaryKey(record: AreaRecord) =
         update {
             set(name).equalTo(record::name)
+            set(area_type).equalTo(record::areaType)
             set(polygon).equalTo(record::polygon)
             where(id, isEqualTo(record::id))
         }
@@ -51,6 +55,7 @@ fun AreaMapper.select(completer: SelectCompleter): List<AreaRecord> =
 fun AreaMapper.selectManyLike(text:String ): List<AreaRecord> {
     return select {
         where( name, isLikeCaseInsensitive("%${text}%"))
+        orderBy( name )
     }
 }
 
@@ -83,9 +88,9 @@ class ContainmentCondition( val xy:XY ) : AbstractSingleValueCondition<Polygon> 
 
 }
 
+
 class PolygonSupplier( ) : Supplier<Polygon?> {
     override fun get(): Polygon? {
         return  null
     }
-
 }

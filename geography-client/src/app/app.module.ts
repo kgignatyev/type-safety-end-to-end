@@ -13,6 +13,7 @@ import {AgmCoreModule} from "@agm/core";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {InterceptorService} from "./services/interceptor.service";
 import {AgmDrawingModule} from "@agm/drawing";
+import { AreaTypeSelectComponent } from './components/area-type-select/area-type-select.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {AgmDrawingModule} from "@agm/drawing";
     AboutComponent,
     AreasComponent,
     AreaComponent,
-    HomeComponent
+    HomeComponent,
+    AreaTypeSelectComponent
   ],
   imports: [
     BrowserModule,

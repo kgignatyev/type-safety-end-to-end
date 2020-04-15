@@ -13,8 +13,13 @@ export class AreasComponent implements OnInit {
   constructor( private geographySvc: GeographyService) { }
 
   async ngOnInit() {
-    const areas = await this.geographySvc.findAreas('')
-    this.areas = areas.getItemsList();
+    try {
+      const areas = await this.geographySvc.findAreas('')
+      this.areas = areas.getItemsList();
+    }catch (e) {
+      this.areas = [];
+    }
+
   }
 
 }

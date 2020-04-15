@@ -12,63 +12,68 @@
     <h5 class="card-title">Area {{area?.getId()}}</h5>
   </div>
   <div class="card-body">
-    <div class="row">
+    <div class="row"  m-1>
       <div class="col-md-2">
         Name:
       </div>
-      <div class="col-md-2">
-       <input [ngModel]="area?.getName()"
-              (ngModelChange)="area?.setName( $event.toString() )" />
+      <div class="col-md-3">
+        <input [ngModel]="area?.getName()"
+               (ngModelChange)="area?.setName( $event.toString() )"/>
+      </div>
+
+      <div class="col-md-3">
+        <app-area-type-select [area]="area"></app-area-type-select>
       </div>
     </div>
-<!--    <div class="row">-->
-<!--            <div class="col-md-12">-->
-<!--             map poly:-->
-<!--              <span *ngFor="let p of agmPolyPaths"> ({{p.lat}},{{p.lng}})</span>-->
-<!--            </div>-->
-<!--    </div>-->
-    <div class="row">
-    <div class="col-md-12">
-      <agm-map #agmMap
-        [usePanning]="true"
-        [latitude]="centerLat"
-        [longitude]="centerLng"
-        [zoom]="zoom"
-        [disableDefaultUI]="false"
-        [zoomControl]="true"
-        (mapReady)="onMapReady( $event )"  [agmDrawingManager]="drawing">
+    <!--    <div class="row">-->
+    <!--            <div class="col-md-12">-->
+    <!--             map poly:-->
+    <!--              <span *ngFor="let p of agmPolyPaths"> ({{p.lat}},{{p.lng}})</span>-->
+    <!--            </div>-->
+    <!--    </div>-->
+    <div class="row m-1">
+      <div class="col-md-12">
+        <agm-map #agmMap
+                 [usePanning]="true"
+                 [latitude]="centerLat"
+                 [longitude]="centerLng"
+                 [zoom]="zoom"
+                 [disableDefaultUI]="false"
+                 [zoomControl]="true"
+                 (mapReady)="onMapReady( $event )" [agmDrawingManager]="drawing">
 
 
+          <!--        <agm-polygon #agmPolygon [clickable]="true"-->
+          <!--                     [editable]="true"-->
+          <!--                     [draggable]="true"-->
+          <!--                     [paths]="agmPolyPaths"-->
+          <!--                     (polyClick)="polyPathsChange($event)"-->
+          <!--                     (change)="polyPathsChange($event)"-->
+          <!--         (polyPathsChange)="polyPathsChange( $event )"-->
+          <!--        >-->
 
-<!--        <agm-polygon #agmPolygon [clickable]="true"-->
-<!--                     [editable]="true"-->
-<!--                     [draggable]="true"-->
-<!--                     [paths]="agmPolyPaths"-->
-<!--                     (polyClick)="polyPathsChange($event)"-->
-<!--                     (change)="polyPathsChange($event)"-->
-<!--         (polyPathsChange)="polyPathsChange( $event )"-->
-<!--        >-->
 
+          <!--        </agm-polygon>-->
 
-<!--        </agm-polygon>-->
+        </agm-map>
+        <agm-drawing-manager #drawing="agmDrawingManager"
 
-      </agm-map>
-      <agm-drawing-manager #drawing="agmDrawingManager"
-
-        (polygonComplete)="polygonCreated($event)" [drawingControl]="managerOptions.drawingControl"
-                           [drawingControlOptions]="managerOptions.drawingControlOptions"
-                           [polygonOptions]="managerOptions.polygonOptions" [drawingMode]="managerOptions.drawingMode"
-                           (overlayComplete)="polyPathsChange( $event)"
-      >
-      </agm-drawing-manager>
+                             (polygonComplete)="polygonCreated($event)" [drawingControl]="managerOptions.drawingControl"
+                             [drawingControlOptions]="managerOptions.drawingControlOptions"
+                             [polygonOptions]="managerOptions.polygonOptions" [drawingMode]="managerOptions.drawingMode"
+                             (overlayComplete)="polyPathsChange( $event)"
+        >
+        </agm-drawing-manager>
+      </div>
     </div>
-    </div>
 
-    <div class="row">
-            <div class="col-md-12">
-              <button class="btn btn-secondary" (click)="close()">Cancel</button>
-              <button class="btn btn-primary" (click)="save()">Save</button>
-            </div>
+    <div class="row m-1">
+      <div class="col-md-2">
+        <button class="btn btn-secondary" (click)="close()">Cancel</button>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary" (click)="save()">Save</button>
+      </div>
     </div>
   </div>
 </div>

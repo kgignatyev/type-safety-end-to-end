@@ -8,21 +8,22 @@ import kgi.geography_api.GeographyOuterClass
 import org.springframework.core.convert.converter.Converter
 
 
-class AreaToDAO : Converter<AreaRecord, GeographyOuterClass.Area> {
+class DAOToArea  : Converter<AreaRecord, GeographyOuterClass.Area> {
     override fun convert(s: AreaRecord): GeographyOuterClass.Area {
         val r = GeographyOuterClass.Area.newBuilder()
         r.id = s.id
         r.name = s.name
         r.polygon = toPolyGrpc( s.polygon )
+        r.areaType = s.areaType
         return r.build()
     }
 
 }
 
-class DAOToArea :Converter< GeographyOuterClass.Area, AreaRecord > {
+class AreaToDAO :Converter< GeographyOuterClass.Area, AreaRecord > {
 
     override fun convert(s: GeographyOuterClass.Area): AreaRecord {
-        return AreaRecord( s.id,  s.name, toPoly( s.polygon) )
+        return AreaRecord( s.id,  s.name, toPoly( s.polygon), s.areaType )
     }
 
 }

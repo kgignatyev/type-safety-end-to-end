@@ -25,7 +25,8 @@ interface AreaMapper {
         id = "AreaRecordResult", value = [
             Result(column = "id", property = "id"),
             Result(column = "name", property = "name"),
-            Result(column = "polygon", property = "polygon", typeHandler = PolygonTypeHandler::class)
+            Result(column = "polygon", property = "polygon", typeHandler = PolygonTypeHandler::class),
+            Result(column = "area_type", property = "areaType", typeHandler = AreaTypeHandler::class)
         ]
     )
     fun selectMany(selectStatement: SelectStatementProvider): List<AreaRecord>
