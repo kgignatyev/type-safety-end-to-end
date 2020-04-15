@@ -4,25 +4,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.kgi</groupId>
-    <artifactId>db-schema-manager</artifactId>
+    <artifactId>db-manager</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <name>DB maintenance helper</name>
 
     <prerequisites>
         <maven>3.6</maven>
     </prerequisites>
 
     <properties>
-        <flyway.version>6.2.2</flyway.version>
-        <postgresql.version>42.2.10</postgresql.version>
+        <flyway.version>6.3.3</flyway.version>
+        <postgresql.version>42.2.12</postgresql.version>
         <migration.jdbc-url>jdbc:postgresql://127.0.0.1:5432/set-me</migration.jdbc-url>
         <migration.db-user>set-user</migration.db-user>
         <migration.db-password>set-password</migration.db-password>
         <migration.db-schema>set-schema</migration.db-schema>
-        <project.dir>.</project.dir>
+        <plexus-cipher.version>1.7</plexus-cipher.version>
     </properties>
 
     <dependencies>
-        
+
 
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
@@ -30,14 +31,18 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
-        
+
         <!--		flyway integration-->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>${flyway.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.sonatype.plexus</groupId>
+            <artifactId>plexus-cipher</artifactId>
+            <version>${plexus-cipher.version}</version>
+        </dependency>
 
     </dependencies>
 
@@ -48,7 +53,7 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-
+                <version>3.2.1</version>
                 <configuration>
                     <url>${migration.jdbc-url}</url>
                     <user>${migration.db-user}</user>
@@ -66,6 +71,11 @@
                         <groupId>org.postgresql</groupId>
                         <artifactId>postgresql</artifactId>
                         <version>${postgresql.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.sonatype.plexus</groupId>
+                        <artifactId>plexus-cipher</artifactId>
+                        <version>${plexus-cipher.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

@@ -8,7 +8,7 @@ import {AreaComponent} from "./pages/area/area.component";
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [ AutzService ] },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'areas', component: AreasComponent, pathMatch: 'full', canActivate: [ AutzService ] },
   { path: 'areas/:id', component: AreaComponent, pathMatch: 'full', canActivate: [ AutzService ] },
   { path: 'about', component: AboutComponent, pathMatch: 'full', canActivate: [ AutzService ] },

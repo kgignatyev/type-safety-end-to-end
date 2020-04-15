@@ -5,7 +5,7 @@ export PGPASS=${PGPASS:-admin}
 export DBSCHEMA=${DBSCHEMA:-public}
 export DB=${DB:-geography}
 
-mvn  -f db-schema-manager.xml \
+mvn  -f ../devops/db-manager/pom.xml \
  -Dmigration.jdbc-url=jdbc:postgresql://${PGHOST}:${PGPORT}/${DB} \
  -Dmigration.db-user=${PGUSER} \
  -Dmigration.db-password=${PGPASS} \

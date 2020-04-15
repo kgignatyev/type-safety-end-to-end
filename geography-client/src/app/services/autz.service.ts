@@ -14,7 +14,7 @@ export class AutzService implements CanActivate{
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+    return this.authService.loggedIn() || route.pathFromRoot.length==0;
   }
 
 
