@@ -33,12 +33,12 @@ spec:
               secretKeyRef:
                 name: {{ include "db-secret.name" . }}
                 key: postgresql-user
-          - name: DBPASSWORD
+          - name: DBPASS
             valueFrom:
               secretKeyRef:
                 name: {{ include "db-secret.name" . }}
                 key: postgresql-password
-          - name: DBHOST
+          - name: DBHOST_PORT
             valueFrom:
               secretKeyRef:
                 name: {{ include "db-secret.name" . }}
@@ -76,22 +76,12 @@ spec:
           image: "{{ .Values.grpc_proxy_image.repository }}:{{ .Values.grpc_proxy_image.tag }}"
           imagePullPolicy: {{ .Values.grpc_proxy_image.pullPolicy }}
           command: ["envoy"]
-          args: ["-c","/etc/envoy/envoy-with-auth0.yaml"]
+          args: ["-c","/etc/envoy/envoy.yaml"]
+#          args: ["-c","/etc/envoy/envoy-with-auth0.yaml"] remote fetch is failing
           ports:
             - name: grpc-web
               containerPort: 8080
               protocol: TCP
-{{- if .Values.service.readiness_check_uri }}
-          readinessProbe:
-            exec:
-              command:
-                - sh
-                - /grpc-web-call-with-empty.sh
-                - {{.Values.service.readiness_check_uri }}
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            failureThreshold: 10
-{{- end }}
       volumes:
         - name: config
           secret:

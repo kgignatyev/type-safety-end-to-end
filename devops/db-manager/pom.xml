@@ -19,6 +19,7 @@
         <migration.db-user>set-user</migration.db-user>
         <migration.db-password>set-password</migration.db-password>
         <migration.db-schema>set-schema</migration.db-schema>
+        <migration.sources>src/db_migrations</migration.sources>
         <plexus-cipher.version>1.7</plexus-cipher.version>
     </properties>
 
@@ -62,7 +63,7 @@
                         <schema>${migration.db-schema}</schema>
                     </schemas>
                     <locations>
-                        <location>filesystem:${project.dir}/src/db_migrations</location>
+                        <location>filesystem:${migration.sources}</location>
                     </locations>
 
                 </configuration>

@@ -2,13 +2,14 @@ geography-service:
   configSecret:
     name: "geography-config"
 
-  service-image:
-    tag: 2020-04-14-23-04
-    repository: kgignatyev/geography-service
+  service_image:
+    tag: 2020-04-15-21-06
+    repository: index.docker.io/kgignatyev/geography-service
 
-  db-migration-image:
+  db_migration_image:
     tag: V1.1
-    repository: geography-db-migrations
+    repository: index.docker.io/kgignatyev/geography-db-migrations
 
-  grpc-proxy-image:
+  grpc_proxy_image:
+    repository: index.docker.io/kgignatyev/istio-grpc-web-proxy
     tag: 2020-04-14-22-13
