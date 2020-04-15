@@ -1,0 +1,87 @@
+# Default values, should be overriden
+
+replicaCount: 1
+
+imagePullSecrets:
+  - name: private-pull
+
+dbSecret:
+  create: "YES"
+  postgresql-password: admin
+  postgresql-host: dev-postgresql
+  postgresql-user: postgres
+  postgresql-dbname: geography
+
+#
+dbSchemaSecret:
+  create: "YES"
+  postgresql-password: admin
+  postgresql-user: postgres
+
+
+configSecret:
+  name: "set-me"
+  create: "YES"
+  data:
+    grpc.port: 6565
+    spring.datasource.name: geography-data-source
+    spring.datasource.url: jdbc:postgresql://postgres-dev:5432/geography
+    spring.datasource.username: postgres
+    spring.datasource.password: admin
+    spring.datasource.platform: postgres
+  logging:
+    config: '/config/logback.xml'
+
+
+
+service_image:
+  repository: kgignatyev/geography-service
+  tag: 2020-04-14-23-04
+  pullPolicy: IfNotPresent
+
+db_migration_image:
+  repository: kgignatyev/geography-db-migration
+  tag: v1.1
+  pullPolicy: IfNotPresent
+
+grpc_proxy_image:
+  repository: kgignatyev/istio-grpc-web-proxy
+  tag: 2020-04-14-22-13
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: NodePort
+  grpc_port: 6565
+  grpcweb_port: 8080
+#  rest_port: 7070
+  create: "YES"
+# assigning ports directly should be avoided
+# grpcweb_nodeport: 30110
+# uncomment only if service (and pod) listen on to REST traffic
+#  rest_port: 7070
+# uncomment if service has an URI that can be tested with empty request, without authorization
+# readiness_check_uri: mtech.account_api.AccountService/GetBuildInfo
+
+deployment:
+  create: "YES"
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

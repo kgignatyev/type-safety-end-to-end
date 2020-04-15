@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Area, LatLng, Polygon} from "@kgi/geograply-interface/geography_pb";
 import {Subscription} from "rxjs";
 import {LatLngLiteral, PolygonOptions} from "@agm/core/services/google-maps-types";
-import {AgmMap} from "@agm/core";
 import {AgmDrawingManager} from "@agm/drawing";
 
 declare const google: any;

@@ -1,3 +1,6 @@
+GRPC for the win!
+
+
 Generate Interface
 ---
 
@@ -10,4 +13,9 @@ Note: every change should update version number, no snapshots!
     cd interface
     ./build-stubs.sh
     
-that generates server side implementation stubs and client    
+that generates server side implementation stubs and client, plus versioned 
+documentation in html and markdown formats. HTML documentation is publisheable
+and markdown is convenient for embedding into npm module 
+  
+
+  

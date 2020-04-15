@@ -8,7 +8,7 @@ export PWD=$(pwd)
 gen_java_stubs () {
 #mkdir -p ${JAVA_DST_DIR}
 #protoc -I=$SRC_DIR --java_out=$JAVA_DST_DIR $SRC_DIR/geography.proto
-mvn clean install
+mvn install
 }
 
 export_version_info(){
@@ -26,7 +26,7 @@ gen_ts_stubs () {
     --ts_out=service=grpc-web:$TS_OUT_DIR \
     -I=${SRC_DIR} $SRC_DIR/geography.proto
 
-#    set names
+  cp target/docs/interface.md $TS_OUT_DIR/
   cat package.json| sed -e "s/INTERFACE_VERSION/${INTERFACE_VERSION}/g"  | \
      sed -e "s/INTERFACE_NAME/${INTERFACE_NAME}/g" > $TS_OUT_DIR/package.json
 }
@@ -39,10 +39,28 @@ deploy_to_repo () {
    cd -
 }
 
+gen_docs () {
+  docker run --rm \
+    -v $PWD/target/docs:/out \
+    -v $PWD/src/main/proto:/protos \
+    pseudomuto/protoc-gen-doc "$@"
+}
+
+gen_proto_docs () {
+  mkdir -p target/docs
+  gen_docs --doc_opt=html,index.html geography.proto
+  cp  target/docs/index.html target/docs/index.original.html
+  cat target/docs/index.original.html |sed  -e "s/>Table of Contents</> Version: ${INTERFACE_VERSION} generated: $(date) </g" > target/docs/index.html
+  cp target/docs/index.html target/docs/index-${INTERFACE_VERSION}.html
+  gen_docs --doc_opt=markdown,interface.md geography.proto
+}
+
+mvn clean
 gen_java_stubs
 export_version_info
-
 source target/version_info
+
+gen_proto_docs
 
 gen_ts_stubs
 

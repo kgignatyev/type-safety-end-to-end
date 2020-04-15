@@ -1,0 +1,111 @@
+{{- if eq "YES" .Values.deployment.create  }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sboot-service.fullname" . }}
+  labels:
+{{ include "sboot-service.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "sboot-service.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "sboot-service.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+
+{{- if .Values.db_migration_image.tag }}
+      initContainers:
+        - name: {{ .Chart.Name }}-db-migration
+          image: "{{ .Values.db_migration_image.repository }}:{{ .Values.db_migration_image.tag }}"
+          imagePullPolicy: {{ .Values.db_migration_image.pullPolicy }}
+          env:
+          - name: DBUSER
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "db-secret.name" . }}
+                key: postgresql-user
+          - name: DBPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "db-secret.name" . }}
+                key: postgresql-password
+          - name: DBHOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "db-secret.name" . }}
+                key: postgresql-host
+          - name: DBNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "db-secret.name" . }}
+                key: postgresql-dbname
+{{- end }}
+
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.service_image.repository }}:{{ .Values.service_image.tag }}"
+          imagePullPolicy: {{ .Values.service_image.pullPolicy }}
+          ports:
+            - name: grpc
+              containerPort: 6565
+              protocol: TCP
+{{- if .Values.service.rest_port }}
+            - name: rest
+              containerPort: {{ .Values.service.rest_port }}
+              protocol: TCP
+{{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+          - name: DB_TYPE
+            value: 'postgresql'
+          volumeMounts:
+          - name: config
+            mountPath: "/config"
+            readOnly: true
+        - name: {{ .Chart.Name }}-grpc-proxy
+          image: "{{ .Values.grpc_proxy_image.repository }}:{{ .Values.grpc_proxy_image.tag }}"
+          imagePullPolicy: {{ .Values.grpc_proxy_image.pullPolicy }}
+          command: ["envoy"]
+          args: ["-c","/etc/envoy/envoy-with-auth0.yaml"]
+          ports:
+            - name: grpc-web
+              containerPort: 8080
+              protocol: TCP
+{{- if .Values.service.readiness_check_uri }}
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - /grpc-web-call-with-empty.sh
+                - {{.Values.service.readiness_check_uri }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 10
+{{- end }}
+      volumes:
+        - name: config
+          secret:
+            secretName: {{ include "config-secret.name" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+{{- end -}}

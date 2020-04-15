@@ -1,12 +1,9 @@
 syntax = "proto3";
 
-package mtech.geo_api;
+package kgi.geography_api;
+option java_package = "kgi.geography_api";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
-
-option java_package = "kgi.geography_api";
-
-
 
 message LatLng {
     // The latitude in degrees. It must be in the range [-90.0, +90.0].
@@ -31,8 +28,6 @@ message Area {
     AreaType area_type = 4;
 }
 
-
-
 message AreasList {
     repeated Area items = 1;
 }
@@ -43,16 +38,16 @@ message AreaSearchCriteria {
       LatLng contains_point = 2;
     }
 }
-
 service Geography {
-
     rpc CreateArea (Area) returns (Area);
     rpc GetAreaByID (google.protobuf.StringValue) returns (Area);
     rpc UpdateArea (Area) returns (Area);
     rpc DeleteAreaByID(google.protobuf.StringValue ) returns (google.protobuf.Empty);
     rpc FindAreas(google.protobuf.StringValue ) returns (AreasList);
-    rpc FindAreasContaining( LatLng ) returns (AreasList);
+    // deprecated, use FindAreasBy
+    rpc FindAreasContaining( LatLng ) returns (AreasList) {
+        option deprecated = true;
+    };
     rpc FindAreasBy( AreaSearchCriteria ) returns (AreasList);
-
 }
 

@@ -44,7 +44,19 @@ class GeographyGRPC: GeographyGrpc.GeographyImplBase() {
         sendResponse( responseObserver, geographySvc.findAreasContaining( request))
     }
 
-    override fun findAreas(request: StringValue?, responseObserver: StreamObserver<GeographyOuterClass.AreasList>?) {
+    override fun findAreas(request: StringValue, responseObserver: StreamObserver<GeographyOuterClass.AreasList>) {
         sendResponse( responseObserver, geographySvc.findAreas( request.toString()))
+    }
+
+    override fun findAreasBy(request: GeographyOuterClass.AreaSearchCriteria, responseObserver: StreamObserver<GeographyOuterClass.AreasList>) {
+        val areasList = when( request.criteriaCase ){
+            GeographyOuterClass.AreaSearchCriteria.CriteriaCase.TEXT ->
+                 geographySvc.findAreas( request.text )
+            GeographyOuterClass.AreaSearchCriteria.CriteriaCase.CONTAINS_POINT ->
+                geographySvc.findAreasContaining( request.containsPoint )
+            else ->
+                geographySvc.findAreas( "" )
+        }
+        sendResponse( responseObserver, areasList)
     }
 }

@@ -1,0 +1,6 @@
+dependencies:
+  - alias: geography-service
+    name: sboot-service
+    version: 1.0.0
+    repository: "file://../../charts/sboot-service"
+

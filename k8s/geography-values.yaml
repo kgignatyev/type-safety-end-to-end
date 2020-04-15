@@ -1,0 +1,12 @@
+geography-service:
+  configSecret:
+    name: "geography-config"
+
+  service-image:
+    tag: 2020-04-14-23-04
+
+  db-migration-image:
+    tag: v1.0
+
+  grpc-proxy-image:
+    tag: 2020-04-14-22-13

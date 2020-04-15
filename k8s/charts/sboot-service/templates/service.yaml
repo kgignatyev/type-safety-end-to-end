@@ -1,0 +1,33 @@
+{{- if eq "YES" .Values.service.create  }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sboot-service.fullname" . }}
+  labels:
+    access: public
+    protection: none
+{{ include "sboot-service.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.grpc_port }}
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+    - port: {{ .Values.service.grpcweb_port }}
+      targetPort: grpc-web
+{{- if .Values.service.grpcweb_nodeport }}
+      nodePort: {{ .Values.service.grpcweb_nodeport }}
+{{- end }}
+      protocol: TCP
+      name: grpcweb
+{{- if .Values.service.rest_port }}
+    - port: {{ .Values.service.rest_port }}
+      targetPort: rest
+      protocol: TCP
+      name: rest
+{{- end }}
+  selector:
+    app.kubernetes.io/name: {{ include "sboot-service.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
