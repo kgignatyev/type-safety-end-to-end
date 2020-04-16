@@ -26,6 +26,7 @@ message Area {
     Polygon polygon = 2;
     string name = 3;
     AreaType area_type = 4;
+    string title = 5;
 }
 
 message AreasList {
@@ -34,7 +35,7 @@ message AreasList {
 
 message AreaSearchCriteria {
     oneof criteria {
-      string text = 1;
+      string text = 1;//substring match, case insensitive
       LatLng contains_point = 2;
     }
 }

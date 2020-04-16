@@ -44,6 +44,8 @@ class GeographyGRPC: GeographyGrpc.GeographyImplBase() {
         sendResponse( responseObserver, geographySvc.findAreasContaining( request))
     }
 
+
+
     override fun findAreas(request: StringValue, responseObserver: StreamObserver<GeographyOuterClass.AreasList>) {
         sendResponse( responseObserver, geographySvc.findAreas( request.toString()))
     }

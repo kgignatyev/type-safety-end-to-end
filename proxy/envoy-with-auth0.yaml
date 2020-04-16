@@ -66,7 +66,7 @@ static_resources:
       lb_policy: round_robin
       hosts:
         - socket_address:
-            address: localhost
+            address: 127.0.0.1
             port_value: 6565
     - name: kgignatyev.auth0.com_443
       connect_timeout: 0.25s

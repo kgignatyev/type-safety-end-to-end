@@ -46,6 +46,7 @@ export class GeographyService extends ServiceBase {
     this.geographyClient = new GeographyClient( configService.getGeographyServiceURL())
   }
 
+
   createArea( area: Area ): Promise< Area > {
     return new Promise( ( resolve, reject ) => {
       this.geographyClient.createArea( area, this.authzSvc.grpcMetadata(), this.makeHandler( resolve, reject ) );
