@@ -30,7 +30,7 @@ import { AreaTypeSelectComponent } from './components/area-type-select/area-type
     FormsModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBIcb1YvT06SzTX519YMHcDqimemw0Xwqo',//restricted, todo: replace with lazy init
+      apiKey: '==use your google api key==',//restricted, todo: replace with lazy init
       libraries: ['places', 'drawing', 'geometry'],
     }),
     AgmDrawingModule
