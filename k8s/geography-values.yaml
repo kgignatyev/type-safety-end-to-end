@@ -12,4 +12,4 @@ geography-service:
 
   grpc_proxy_image:
     repository: index.docker.io/kgignatyev/istio-grpc-web-proxy
-    tag: 2020-04-14-22-13
+    tag: 2020-04-16-04-02

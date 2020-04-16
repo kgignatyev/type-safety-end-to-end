@@ -61,7 +61,7 @@ static_resources:
   clusters:
     - name: geography_service
       connect_timeout: 0.25s
-      type: logical_dns
+      type: STRICT_DNS
       http2_protocol_options: {}
       lb_policy: round_robin
       hosts:
@@ -70,7 +70,7 @@ static_resources:
             port_value: 6565
     - name: kgignatyev.auth0.com_443
       connect_timeout: 0.25s
-      type: logical_dns
+      type: STRICT_DNS
       lb_policy: round_robin
       load_assignment:
         cluster_name: kgignatyev.auth0.com_443

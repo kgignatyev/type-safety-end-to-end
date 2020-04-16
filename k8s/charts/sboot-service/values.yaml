@@ -25,7 +25,7 @@ configSecret:
   data:
     grpc.port: 6565
     spring.datasource.name: geography-data-source
-    spring.datasource.url: jdbc:postgresql://postgres-dev:5432/geography
+    spring.datasource.url: jdbc:postgresql://dev-postgresql:5432/geography
     spring.datasource.username: postgres
     spring.datasource.password: admin
     spring.datasource.platform: postgres
