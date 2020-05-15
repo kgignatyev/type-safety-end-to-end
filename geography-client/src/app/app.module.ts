@@ -9,11 +9,12 @@ import { AreasComponent } from './pages/areas/areas.component';
 import { AreaComponent } from './pages/area/area.component';
 import { HomeComponent } from './pages/home/home.component';
 import {FormsModule} from "@angular/forms";
-import {AgmCoreModule} from "@agm/core";
+import {AgmCoreModule, LAZY_MAPS_API_CONFIG} from "@agm/core";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {InterceptorService} from "./services/interceptor.service";
 import {AgmDrawingModule} from "@agm/drawing";
 import { AreaTypeSelectComponent } from './components/area-type-select/area-type-select.component';
+import {MapConfigService} from "./services/map-config.service";
 
 @NgModule({
   declarations: [
@@ -29,10 +30,7 @@ import { AreaTypeSelectComponent } from './components/area-type-select/area-type
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCjoxYifOkhRjSDHJdcyXqs3zGr3zP0mSY',//restricted, todo: replace with lazy init
-      libraries: ['places', 'drawing', 'geometry'],
-    }),
+    AgmCoreModule.forRoot(),
     AgmDrawingModule
   ],
   providers: [
@@ -40,7 +38,11 @@ import { AreaTypeSelectComponent } from './components/area-type-select/area-type
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptorService,
     multi: true
-  }
+  },
+    {
+      provide: LAZY_MAPS_API_CONFIG,
+      useClass: MapConfigService
+    }
 
   ],
   bootstrap: [AppComponent]

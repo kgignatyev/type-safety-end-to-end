@@ -1,3 +1,4 @@
 .idea/
 target/
 *.iml
+geography-client/src/environments/environment.prod.ts
