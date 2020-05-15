@@ -1,7 +1,7 @@
-package com.kgi.geograply_service
+package com.kgi.geography_service
 
-import com.kgi.geograply_service.converters.AreaToDAO
-import com.kgi.geograply_service.converters.DAOToArea
+import com.kgi.geography_service.converters.AreaToDAO
+import com.kgi.geography_service.converters.DAOToArea
 import org.mybatis.spring.annotation.MapperScan
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -18,7 +18,8 @@ import java.util.HashSet
 @EnableAsync(proxyTargetClass = true)
 @EnableCaching(proxyTargetClass = true)
 @MapperScan(basePackages = [
-    "com.kgi.geograply_service.dao"
+    "com.kgi.geography_service.dao",
+    "com.kgi.geography_service.dao.mapper"
 ])
 class GeographyApp {
 

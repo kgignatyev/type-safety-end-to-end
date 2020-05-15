@@ -1,3 +1,4 @@
+[ -d "charts/postgresql" ] && rm -fR charts/postgresql
 mkdir  -p target
 
 helm repo add bitnami https://charts.bitnami.com/bitnami

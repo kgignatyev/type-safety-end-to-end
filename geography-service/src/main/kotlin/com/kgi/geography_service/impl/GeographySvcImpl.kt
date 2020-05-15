@@ -1,6 +1,11 @@
-package com.kgi.geograply_service.impl
+package com.kgi.geography_service.impl
 
-import com.kgi.geograply_service.dao.*
+import com.kgi.geography_service.dao.*
+import com.kgi.geography_service.dao.mapper.AreaMapper
+import com.kgi.geography_service.dao.mapper.insert
+import com.kgi.geography_service.dao.mapper.selectByPrimaryKey
+import com.kgi.geography_service.dao.mapper.updateByPrimaryKey
+import com.kgi.geography_service.dao.model.AreaRecord
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*

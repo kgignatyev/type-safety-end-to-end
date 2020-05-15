@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <package name="com.kgi.geograply_service.dao"/>
+        <package name="com.kgi.geography_service.dao"/>
     </typeAliases>
 
 </configuration>

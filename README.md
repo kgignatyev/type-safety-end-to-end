@@ -36,14 +36,26 @@ that gives us Postgres running in k8s and exposed on port 30303, then lets
 create a database there and call it 'geography' ( or any other name but more adjustments
 will be necessary) 
 
+Create Database and DB schema
+---
+
+     cd geography-service
+     ./create-db.sh  
+     ./run-db-migration.sh 
+
+Lets (re)-Generate DAO layer
+---
+
+     cd geography-service
+     ./run-dao-gen.sh
+   
+
   
 Run Service
 ---
 
     cd geography-service    
-    export GEOGRAPHY_DBPORT
-    #generate schema
-    ./run-db-migration.sh
+    source set-db-env.sh    
     mvn  spring-boot:run
     
 Run Proxy
@@ -54,6 +66,9 @@ or
 https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy
 
 then run ./run-grpcweb-proxy.sh or  ./run-envoy-proxy.sh in proxy subdirectory
+
+    cd proxy
+    ./run-envoy-proxy.sh
 
 
 Run Client

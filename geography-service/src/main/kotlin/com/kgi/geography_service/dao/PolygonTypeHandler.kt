@@ -1,4 +1,4 @@
-package com.kgi.geograply_service.dao
+package com.kgi.geography_service.dao
 
 import org.apache.ibatis.type.JdbcType
 import org.apache.ibatis.type.MappedJdbcTypes

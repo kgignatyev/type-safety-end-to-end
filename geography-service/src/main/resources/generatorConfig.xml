@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+<!--    todo: figure out how to pass parameters to the jdbc connection -->
+    <context id="kotlin" targetRuntime="MyBatis3Kotlin">
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost:30303/geography"
+                        userId="postgres"
+                        password="admin">
+        </jdbcConnection>
+        <javaModelGenerator targetPackage="com.kgi.geography_service.dao.model" targetProject="src/main/kotlin"/>
+
+        <javaClientGenerator targetPackage="com.kgi.geography_service.dao.mapper" targetProject="src/main/kotlin" />
+
+        <table tableName="areas" >
+            <domainObjectRenamingRule searchString="Areas" replaceString="Area"/>
+            <columnOverride column="polygon" typeHandler="com.kgi.geography_service.dao.PolygonTypeHandler"
+                            javaType="com.kgi.geography_service.dao.Polygon"/>
+
+            <columnOverride column="area_type" typeHandler="com.kgi.geography_service.dao.AreaTypeHandler"
+                            javaType="kgi.geography_api.GeographyOuterClass.AreaType" />
+        </table>
+    </context>
+</generatorConfiguration>

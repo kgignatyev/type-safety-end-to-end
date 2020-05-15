@@ -1,8 +1,8 @@
-package com.kgi.geograply_service.services
+package com.kgi.geography_service.services
 
-import com.kgi.geograply_service.dao.AreaRecord
-import com.kgi.geograply_service.dao.XY
-import com.kgi.geograply_service.impl.GeographySvcImpl
+import com.kgi.geography_service.dao.XY
+import com.kgi.geography_service.dao.model.AreaRecord
+import com.kgi.geography_service.impl.GeographySvcImpl
 import kgi.geography_api.GeographyOuterClass
 import org.springframework.core.convert.ConversionService
 import org.springframework.stereotype.Service

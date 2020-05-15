@@ -1,6 +1,6 @@
-package com.kgi.geograply_service.iam
+package com.kgi.geography_service.iam
 
-import com.kgi.geograply_service.iam.IAMConstants.cid
+import com.kgi.geography_service.iam.IAMConstants.cid
 import io.grpc.*
 import org.slf4j.MDC
 import org.springframework.beans.factory.annotation.Autowired

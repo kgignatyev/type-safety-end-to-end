@@ -1,0 +1,13 @@
+export PGHOST=${PGHOST:-127.0.0.1}
+export PGPORT=${PGPORT:-30303}
+export PGUSER=${PGUSER:-postgres}
+export PGPASSWORD=${PGPASSWORD:-admin}
+export DBSCHEMA=${DBSCHEMA:-public}
+export DB=${DB:-geography}
+
+
+export GEOGRAPHY_DBHOST=${PGHOST}
+export GEOGRAPHY_DBPORT=${PGPORT}
+export GEOGRAPHY_DBNAME=${DB}
+export GEOGRAPHY_DBUSER=${PGUSER}
+export GEOGRAPHY_DBPASSWORD=${PGPASSWORD}

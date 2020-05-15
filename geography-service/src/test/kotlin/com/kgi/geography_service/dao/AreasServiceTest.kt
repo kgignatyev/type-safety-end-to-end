@@ -1,7 +1,8 @@
-package com.kgi.geograply_service.dao
+package com.kgi.geography_service.dao
 
-import com.kgi.geograply_service.GeographyApp
-import com.kgi.geograply_service.impl.GeographySvcImpl
+import com.kgi.geography_service.GeographyApp
+import com.kgi.geography_service.dao.model.AreaRecord
+import com.kgi.geography_service.impl.GeographySvcImpl
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

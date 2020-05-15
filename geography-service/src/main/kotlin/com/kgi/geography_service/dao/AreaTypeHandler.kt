@@ -1,16 +1,14 @@
-package com.kgi.geograply_service.dao
+package com.kgi.geography_service.dao
 
 import kgi.geography_api.GeographyOuterClass
 import org.apache.ibatis.type.JdbcType
 import org.apache.ibatis.type.MappedJdbcTypes
 import org.apache.ibatis.type.MappedTypes
 import org.apache.ibatis.type.TypeHandler
-import org.postgresql.geometric.PGpoint
 
 import java.sql.CallableStatement
 import java.sql.PreparedStatement
 import java.sql.ResultSet
-import org.postgresql.geometric.PGpolygon;
 
 @MappedTypes(GeographyOuterClass.AreaType::class)
 @MappedJdbcTypes(value = [JdbcType.INTEGER, JdbcType.TINYINT], includeNullJdbcType = true)

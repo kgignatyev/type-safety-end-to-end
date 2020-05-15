@@ -4,9 +4,9 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.2.6.RELEASE</version>
+    <version>2.2.7.RELEASE</version>
   </parent>
-  <groupId>com.mtech</groupId>
+  <groupId>com.kgi</groupId>
   <artifactId>geography-service</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -22,7 +22,7 @@
     <commons-collections4.version>4.4</commons-collections4.version>
     <commons-lang.version>3.10</commons-lang.version>
     <commons-lang3.version>3.7</commons-lang3.version>
-    <cucumber-jvm.version>5.6.0</cucumber-jvm.version>
+    <cucumber-jvm.version>5.7.0</cucumber-jvm.version>
     <dom4j.version>2.0.0</dom4j.version>
     <ehcache.version>2.10.3</ehcache.version>
     <grpc.version>1.28.1</grpc.version>
@@ -37,7 +37,7 @@
     <jtidy.version>r938</jtidy.version>
     <json-patch.version>1.8.2-SNAPSHOT</json-patch.version>
     <kotlin.version>1.3.72</kotlin.version>
-    <hibernate.validator.version>6.1.2.Final</hibernate.validator.version>
+    <hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
     <httpclient.version>4.5.9</httpclient.version>
     <log4j.version>1.2.17</log4j.version>
     <logstash.logback.encoder.version>4.5.1</logstash.logback.encoder.version>

@@ -16,7 +16,7 @@ logging:
 
 spring:
   datasource:
-    name: geograply-data-source
+    name: geography-data-source
     url: jdbc:postgresql://${GEOGRAPHY_DBHOST:127.0.0.1}:${GEOGRAPHY_DBPORT:5432}/${GEOGRAPHY_DBNAME:geography}
     username: ${GEOGRAPHY_DBUSER:postgres}
     password: ${GEOGRAPHY_DBPASSWORD:admin}

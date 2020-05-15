@@ -1,8 +1,8 @@
-package com.kgi.geograply_service.converters
+package com.kgi.geography_service.converters
 
-import com.kgi.geograply_service.dao.AreaRecord
-import com.kgi.geograply_service.dao.Polygon
-import com.kgi.geograply_service.dao.XY
+import com.kgi.geography_service.dao.Polygon
+import com.kgi.geography_service.dao.XY
+import com.kgi.geography_service.dao.model.AreaRecord
 import kgi.geography_api.GeographyOuterClass
 
 import org.springframework.core.convert.converter.Converter
@@ -23,7 +23,7 @@ class DAOToArea  : Converter<AreaRecord, GeographyOuterClass.Area> {
 class AreaToDAO :Converter< GeographyOuterClass.Area, AreaRecord > {
 
     override fun convert(s: GeographyOuterClass.Area): AreaRecord {
-        return AreaRecord( s.id,  s.name, toPoly( s.polygon), s.areaType )
+        return AreaRecord( s.id,  s.name, toPoly( s.polygon), areaType =  s.areaType )
     }
 
 }

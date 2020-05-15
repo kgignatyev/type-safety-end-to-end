@@ -1,4 +1,4 @@
-package com.kgi.geograply_service.iam
+package com.kgi.geography_service.iam
 
 import io.grpc.Metadata
 

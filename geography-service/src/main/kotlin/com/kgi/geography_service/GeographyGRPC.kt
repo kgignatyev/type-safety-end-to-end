@@ -1,9 +1,9 @@
-package com.kgi.geograply_service
+package com.kgi.geography_service
 
 import com.google.protobuf.Empty
 import com.google.protobuf.StringValue
-import com.kgi.geograply_service.iam.AuthInterceptor
-import com.kgi.geograply_service.services.GeographySvc
+import com.kgi.geography_service.iam.AuthInterceptor
+import com.kgi.geography_service.services.GeographySvc
 import io.grpc.stub.StreamObserver
 import kgi.geography_api.GeographyGrpc
 import kgi.geography_api.GeographyOuterClass
