@@ -7,11 +7,12 @@ export IMAGE=kgignatyev/geography-db-migrations:$TAG
 
 # this is a shortcut
 # normally we should package a given versioned artifact from repository
-# so we can repackage with different base image
+# so we can repackage with different base image to address vulnerabilities
+# found in the base image
 
 
 # todo: script to extract versions of interfaces implemented and required
-# a simple groovy script
+
 
 docker build -t $IMAGE \
    -f DB-Migrations.Dockerfile .

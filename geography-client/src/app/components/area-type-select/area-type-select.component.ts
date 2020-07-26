@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Area, AreaType} from "@kgi/geograply-interface/geography_pb";
+import {Area, AreaType} from "@kgi/geography-interface/geography_pb";
 
 
 @Component({

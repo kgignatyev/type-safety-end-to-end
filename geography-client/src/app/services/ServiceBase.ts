@@ -1,5 +1,5 @@
 import {grpc} from "@improbable-eng/grpc-web";
-import {ServiceError} from "@kgi/geograply-interface/geography_pb_service";
+import {ServiceError} from "@kgi/geography-interface/geography_pb_service";
 import * as google_protobuf_wrappers_pb from 'google-protobuf/google/protobuf/wrappers_pb';
 export class ServiceBase {
 

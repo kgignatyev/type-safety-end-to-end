@@ -3,7 +3,7 @@ geography-service:
     name: "geography-config"
 
   service_image:
-    tag: 2020-04-15-21-06
+    tag: 2020-07-25-23-58
     repository: index.docker.io/kgignatyev/geography-service
 
   db_migration_image:

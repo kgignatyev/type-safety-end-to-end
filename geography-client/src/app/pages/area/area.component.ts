@@ -1,7 +1,7 @@
 import {Component, Input, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GeographyService} from "../../services/geography.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Area, LatLng, Polygon} from "@kgi/geograply-interface/geography_pb";
+import {Area, LatLng, Polygon} from "@kgi/geography-interface/geography_pb";
 import {Subscription} from "rxjs";
 import {LatLngLiteral, PolygonOptions} from "@agm/core/services/google-maps-types";
 import {AgmDrawingManager} from "@agm/drawing";

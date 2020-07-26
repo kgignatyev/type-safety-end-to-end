@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {GeographyService} from "../../services/geography.service";
-import {Area} from "@kgi/geograply-interface/geography_pb";
+import {Area} from "@kgi/geography-interface/geography_pb";
 
 @Component({
   selector: 'app-areas',

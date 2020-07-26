@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ConfigurationService} from "./configuration.service";
-import {GeographyClient} from "@kgi/geograply-interface/geography_pb_service";
-import {Area, AreasList, LatLng, Polygon} from "@kgi/geograply-interface/geography_pb";
+import {GeographyClient} from "@kgi/geography-interface/geography_pb_service";
+import {Area, AreasList, LatLng, Polygon} from "@kgi/geography-interface/geography_pb";
 import {AutzService} from "./autz.service";
 import {ServiceBase} from "./ServiceBase";
 

@@ -1,4 +1,5 @@
 set -x
+set -e
 export SRC_DIR=src/main/proto
 export TS_OUT_DIR=target/ts_grpcweb
 
@@ -8,7 +9,7 @@ export PWD=$(pwd)
 gen_java_stubs () {
 #mkdir -p ${JAVA_DST_DIR}
 #protoc -I=$SRC_DIR --java_out=$JAVA_DST_DIR $SRC_DIR/geography.proto
-mvn install
+mvn install deploy
 }
 
 export_version_info(){

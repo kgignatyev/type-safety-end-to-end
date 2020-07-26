@@ -32,7 +32,7 @@ Easy to run in K8s (for example local docker or other mini k8s)
     kubectl apply -f target/pg-k8s-descriptor.yaml
 
 
-that gives us Postgres running in k8s and exposed on port 30303, then lets
+that gives us Postgres running in k8s and exposed on port 30303. Let us now
 create a database there and call it 'geography' ( or any other name but more adjustments
 will be necessary) 
 
@@ -77,7 +77,7 @@ it is a standard Angular 8 application
 
     cd geography-client
     npm install
-    ng s
+    ng s --prod
     
 now we can access application at http://localhost:4200    
     
