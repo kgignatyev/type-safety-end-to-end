@@ -2,3 +2,6 @@
 target/
 *.iml
 geography-client/src/environments/environment.prod.ts
+.gitsecret/keys/random_seed
+!*.secret
+geography-client/src/environments/environment.ts

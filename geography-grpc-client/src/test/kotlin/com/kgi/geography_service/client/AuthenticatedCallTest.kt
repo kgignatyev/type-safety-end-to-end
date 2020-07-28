@@ -1,0 +1,62 @@
+package com.kgi.geography_service.client
+
+import com.google.protobuf.StringValue
+import org.junit.Assert.assertEquals
+import kgi.geography_api.GeographyGrpc
+import org.junit.Before
+import org.junit.Test
+import org.junit.jupiter.api.assertThrows
+import org.junit.runner.RunWith
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.junit4.SpringRunner
+import java.io.File
+import java.lang.Exception
+import javax.annotation.Resource
+
+@RunWith(SpringRunner::class)
+@SpringBootTest(classes = [GeographyServiceGrpcClient::class])
+class AuthenticatedCallTest {
+
+    @Resource
+    lateinit var connectors: GrpcServicesConnector
+
+
+    var user: User = CallContext.anonymous
+
+    val _jwt = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJUUTFOamt5UlRkRVFrSkZNRVkyUkVKRE5VWTBRa0pHTlVJME5VRTNOVFE1UTBKRE5qSkNPUSJ9.eyJnaXZlbl9uYW1lIjoiS29uc3RhbnRpbiIsImZhbWlseV9uYW1lIjoiSWduYXR5ZXYiLCJuaWNrbmFtZSI6ImtnaWduYXR5ZXYiLCJuYW1lIjoiS29uc3RhbnRpbiBJZ25hdHlldiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQU9oMTRHZ25obVBLbHdhNDJtN1dON0txcWhXd25QOXlaMmZYYXNyMHBIQXI3QSIsImxvY2FsZSI6ImVuIiwidXBkYXRlZF9hdCI6IjIwMjAtMDctMjhUMTY6Mzg6NDcuMTY5WiIsImVtYWlsIjoia2dpZ25hdHlldkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9rZ2lnbmF0eWV2LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDEwODI0NDQxNTAyOTY3MjMwMzI2NCIsImF1ZCI6IkFqQjFQc3N2VE94WFlEUnBnM2ZzZ0ZJN3A3WXRwemlRIiwiaWF0IjoxNTk1OTU0MzI4LCJleHAiOjE1OTU5OTAzMjgsIm5vbmNlIjoiUTJvM1N6bE5SSFZGVEhnMFJVdFZiR3BtUTNRdVIySkpjbkpVTUhabFN6bGhjSEpUWm1SV1pWZE9jQT09In0.ekr3pcfB13frC9lTeN-EM8GFn0MpBcJH9qRf8h7kcenHB4CihZtJHWuVGt2diFLDaQATx4_Ci1x5--fxd8XzR7x1y5fOt1nTmDZT2wOD5oL6eiGX5xYEEJpPS5lkot2Wf982iQMJtbUbKW4fQ81JLxn_q0bhkkgYAMCXBpl1afNQKBD_NWYHUrk_WNC4Yo1KI2XfjVQWcUcoVNpGciOF2DtXRKLNyDIpGdIAOWCXNR0yBRDwPtdZ8sTVoG4I2Sok-4jz8lNKkBc_CYqx6ZabMykQVZQKFmv0ha2SvaJgHBqk8f7TEwIm6Io-6K2h-ePW5e3ecehZLIc8-C4DcZMVzQ"
+
+    @Before
+    fun setCallContext() {
+        val jwt = File("config/jwt.txt").readText().replace("[\n\r]".toRegex(),"")
+        user = User("test", "test", jwt)
+        assertEquals(_jwt, jwt)
+        CallContext._currentUser.set(user)
+    }
+
+    @Test
+    fun testListAreas() {
+        testWithStub( connectors.geographyServiceStub )
+
+        testWithStub( connectors.geographyAuthServiceStub )
+
+    }
+
+
+    @Test
+    fun testListAreasDoesNotWorkWithoutAuthentication() {
+
+       val exception = assertThrows<Throwable>{
+           CallContext._currentUser.get().jwt = ""
+           testWithStub(connectors.geographyAuthServiceStub)
+       }
+       println( exception)
+
+    }
+
+    fun testWithStub( stub: GeographyGrpc.GeographyBlockingStub){
+        val foundAreas = stub.findAreas(StringValue.of(""))
+        foundAreas.itemsList.forEachIndexed { index, area ->
+            println("found area ${index}:  ${area}")
+        }
+    }
+}

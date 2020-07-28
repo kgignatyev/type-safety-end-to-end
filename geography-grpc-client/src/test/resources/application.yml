@@ -1,0 +1,29 @@
+grpc:
+  client:
+    geography-grpc-server:
+      address: 'static://localhost:6565'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
+
+    geography-grpc-server-auth:
+      address: 'static://localhost:9090'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
+
+logging:
+  level:
+    root: "INFO"
+
+
+spring:
+
+#  cache:
+#    jcache:
+#      config: "classpath:ehcache.xml"
+  aop:
+    auto: true
+    proxy-target-class: true
+
+

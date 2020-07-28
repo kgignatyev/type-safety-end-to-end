@@ -76,6 +76,7 @@ open class AuthInterceptor : ServerInterceptor {
     }
 
     private fun extractUserIdentity(headers: Metadata): String {
+        //just for demo purposes, we should not do it in real apps
         logger.info( headers.toString() )
         return "anonymous"
     }
