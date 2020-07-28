@@ -9,9 +9,11 @@ export class ConfigurationService {
 
   getGeographyServiceURL():string {
     // return "http://localhost:7000"; //goproxy
-    // return "http://localhost:8080";//envoy
-    return "http://localhost:31368";//inside k8s
+    return "http://localhost:8080";//envoy
+    // return "http://localhost:31368";//inside k8s
   }
+
+  //this should be replaced with custom configuration
 
   getAuth0Config(): Auth0Config {
      const r = new Auth0Config();
