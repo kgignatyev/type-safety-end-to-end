@@ -1,0 +1,28 @@
+apiVersion: gateway.solo.io/v1
+kind: VirtualService
+metadata:
+  name: geography-grpc
+  namespace: gloo-system
+spec:
+  virtualHost:
+    domains:
+    - 'geography'
+    routes:
+      - matchers:
+          - prefix: /
+        routeAction:
+          single:
+            upstream:
+              name: default-r1-geography-service-6565
+              namespace: gloo-system
+#    options:
+#      jwt:
+#        providers:
+#          auth0-provider:
+#            issuer: https://kgignatyev.auth0.com/
+#            jwks:
+#              remote:
+#                upstream_ref:
+#                  name: auth0-upstream
+#                  namespace: gloo-system
+#                url: https://kgignatyev.auth0.com/.well-known/jwks.json
