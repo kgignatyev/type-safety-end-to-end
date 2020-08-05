@@ -12,6 +12,7 @@ have access to a npm repo to deploy artifacts, for example by running Nexus loca
     ./nexus start
     
 maven's settings.xml and ~/.npmrc should be configured to allow uploading artifacts to the repositories
+and 'npms' repository created in nexus (for npm packages)
 
 k8s up and running, via minikube or Docker Desktop
 

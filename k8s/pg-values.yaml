@@ -7,7 +7,7 @@ service:
 image:
   registry: docker.io
   repository: bitnami/postgresql
-  tag: 12.2.0-debian-10-r64
+  tag: 12.3.0-debian-10-r75
 
 persistence:
   mountPath: /bitnami/postgresql12

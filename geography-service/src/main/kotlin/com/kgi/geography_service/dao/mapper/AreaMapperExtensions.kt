@@ -1,6 +1,6 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2020-07-27T11:35:12.405812-07:00
+ * Generation date: 2020-08-04T21:34:12.064033-07:00
  */
 package com.kgi.geography_service.dao.mapper
 
