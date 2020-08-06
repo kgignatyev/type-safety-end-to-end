@@ -34,9 +34,7 @@ class AuthenticatedCallTest {
     @Test
     fun testListAreas() {
         testWithStub( connectors.geographyServiceStub )
-
         testWithStub( connectors.geographyAuthServiceStub )
-
     }
 
 
@@ -47,7 +45,7 @@ class AuthenticatedCallTest {
            CallContext._currentUser.get().jwt = ""
            testWithStub(connectors.geographyAuthServiceStub)
        }
-       println( exception)
+       println( "Got exeception as expected:${exception}" )
 
     }
 
