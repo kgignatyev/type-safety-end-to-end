@@ -1,5 +1,5 @@
 set -x
-set -e
+set -eprotoc-dependencies
 export SRC_DIR=src/main/proto
 export TS_OUT_DIR=target/ts_grpcweb
 
