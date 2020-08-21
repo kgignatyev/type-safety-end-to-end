@@ -50,7 +50,7 @@ service Geography {
     };
     rpc GetAreaByID (google.protobuf.StringValue) returns (Area) {
         option (google.api.http) = {
-             get: "/v1/areas/*"
+             get: "/v1/areas/{value}"
          };
     };
 
@@ -60,16 +60,6 @@ service Geography {
           body: "*"
         };
     };
-    rpc DeleteAreaByID(google.protobuf.StringValue ) returns (google.protobuf.Empty){
-        option ( google.api.http ) = {
-          delete: "/v1/areas/*"
-        };
-    };
-    rpc FindAreas(google.protobuf.StringValue ) returns (AreasList){
-         option (google.api.http) = {
-             get: "/v1/areas-find-by-text/*"
-         };
-    };
     // deprecated, use FindAreasBy
     rpc FindAreasContaining( LatLng ) returns (AreasList) {
         option deprecated = true;
@@ -78,6 +68,18 @@ service Geography {
              body: "*"
          };
     };
+
+    rpc DeleteAreaByID(google.protobuf.StringValue ) returns (google.protobuf.Empty){
+        option ( google.api.http ) = {
+          delete: "/v1/areas/{value}"
+        };
+    };
+    rpc FindAreas(google.protobuf.StringValue ) returns (AreasList){
+         option (google.api.http) = {
+             get: "/v1/areas-find-by-text/{value}"
+         };
+    };
+
     rpc FindAreasBy( AreaSearchCriteria ) returns (AreasList) {
         option (google.api.http) = {
              post: "/v1/areas-find-by"
