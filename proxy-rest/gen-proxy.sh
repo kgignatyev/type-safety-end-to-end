@@ -1,6 +1,5 @@
-
 mkdir -p gen/swagger
-mkdir -p gen/go
+mkdir -p kgi_geography_api
 
 protoc -I ./proto_deps/ -I ../interface/src/main/proto/ \
    --grpc-gateway_out=logtostderr=true,paths=source_relative:./kgi_geography_api/ \
