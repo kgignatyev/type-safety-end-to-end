@@ -2,8 +2,10 @@ syntax = "proto3";
 
 package kgi.geography_api;
 option java_package = "kgi.geography_api";
+option go_package = ".;kgi_geography_api";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
+import "google/api/annotations.proto";
 
 message LatLng {
     // The latitude in degrees. It must be in the range [-90.0, +90.0].
@@ -40,15 +42,49 @@ message AreaSearchCriteria {
     }
 }
 service Geography {
-    rpc CreateArea (Area) returns (Area);
-    rpc GetAreaByID (google.protobuf.StringValue) returns (Area);
-    rpc UpdateArea (Area) returns (Area);
-    rpc DeleteAreaByID(google.protobuf.StringValue ) returns (google.protobuf.Empty);
-    rpc FindAreas(google.protobuf.StringValue ) returns (AreasList);
+    rpc CreateArea (Area) returns (Area) {
+        option ( google.api.http ) = {
+          post: "/v1/areas"
+          body: "*"
+        };
+    };
+    rpc GetAreaByID (google.protobuf.StringValue) returns (Area) {
+        option (google.api.http) = {
+             get: "/v1/areas/{value}"
+         };
+    };
+
+    rpc UpdateArea (Area) returns (Area) {
+        option ( google.api.http ) = {
+          put: "/v1/areas"
+          body: "*"
+        };
+    };
     // deprecated, use FindAreasBy
     rpc FindAreasContaining( LatLng ) returns (AreasList) {
         option deprecated = true;
+        option (google.api.http) = {
+             post: "/v1/areas-find-containing"
+             body: "*"
+         };
     };
-    rpc FindAreasBy( AreaSearchCriteria ) returns (AreasList);
+
+    rpc DeleteAreaByID(google.protobuf.StringValue ) returns (google.protobuf.Empty){
+        option ( google.api.http ) = {
+          delete: "/v1/areas/{value}"
+        };
+    };
+    rpc FindAreas(google.protobuf.StringValue ) returns (AreasList){
+         option (google.api.http) = {
+             get: "/v1/areas-find-by-text/{value}"
+         };
+    };
+
+    rpc FindAreasBy( AreaSearchCriteria ) returns (AreasList) {
+        option (google.api.http) = {
+             post: "/v1/areas-find-by"
+             body: "*"
+         };
+    };
 }
 
