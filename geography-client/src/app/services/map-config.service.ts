@@ -1,18 +1,18 @@
-import {Injectable} from "@angular/core";
-import {LazyMapsAPILoaderConfigLiteral} from "@agm/core";
-import {environment} from "../../environments/environment";
+import {Injectable} from '@angular/core';
+import {LazyMapsAPILoaderConfigLiteral} from '@agm/core';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MapConfigService implements LazyMapsAPILoaderConfigLiteral{
+export class MapConfigService implements LazyMapsAPILoaderConfigLiteral {
 
-  public apiKey: string
-  public libraries: string[]
+  public apiKey: string;
+  public libraries: string[];
   constructor() {
     this.apiKey = environment.google_api_key;
     this.libraries = ['places', 'drawing', 'geometry'];
-    console.log("lazy map init with " + this.apiKey)
+    console.log('lazy map init with ' + this.apiKey);
   }
 }
 

@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.kgi</groupId>
-    <artifactId>geography-interface</artifactId>
-    <version>1.0.12</version>
+    <artifactId>openapiv2-annotations</artifactId>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <prerequisites>
@@ -14,7 +14,7 @@
     </prerequisites>
 
     <properties>
-        <grpc.version>1.37.0</grpc.version>
+        <grpc.version>1.39.0</grpc.version>
         <failIfNoTests>false</failIfNoTests>
         <maven.compiler.source>1.11</maven.compiler.source>
         <maven.compiler.target>1.11</maven.compiler.target>
@@ -35,9 +35,9 @@
             <version>${grpc.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.kgi</groupId>
+            <groupId>com.kgi.openapiv2</groupId>
             <artifactId>openapiv2-annotations</artifactId>
-            <version>1.2</version>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>

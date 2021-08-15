@@ -2,10 +2,35 @@ syntax = "proto3";
 
 package kgi.geography_api;
 option java_package = "kgi.geography_api";
-option go_package = ".;kgi_geography_api";
+option go_package = "./;kgi_geography_api";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+/*
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Geography";
+    version: "1.0.x";
+    description: "see more https://...";
+    contact: {
+      name: "KGI Inc.";
+      url: "http://kgionline.com/";
+      email: "kgignatyev@gmail.com";
+    };
+    license: {
+      name: "BSD 3-Clause License";
+      url: "https://opensource.org/licenses/BSD-3-Clause";
+    };
+  };
+  base_path: "/api/v1/geography";
+  schemes: HTTPS;
+  consumes: "application/json";
+  produces: "application/json";
+};
+
+ */
 
 message LatLng {
     // The latitude in degrees. It must be in the range [-90.0, +90.0].
@@ -44,19 +69,19 @@ message AreaSearchCriteria {
 service Geography {
     rpc CreateArea (Area) returns (Area) {
         option ( google.api.http ) = {
-          post: "/v1/areas"
+          post: "/areas"
           body: "*"
         };
     };
     rpc GetAreaByID (google.protobuf.StringValue) returns (Area) {
         option (google.api.http) = {
-             get: "/v1/areas/{value}"
+             get: "/areas/{value}"
          };
     };
 
     rpc UpdateArea (Area) returns (Area) {
         option ( google.api.http ) = {
-          put: "/v1/areas"
+          put: "/areas"
           body: "*"
         };
     };
@@ -64,25 +89,25 @@ service Geography {
     rpc FindAreasContaining( LatLng ) returns (AreasList) {
         option deprecated = true;
         option (google.api.http) = {
-             post: "/v1/areas-find-containing"
+             post: "/areas-find-containing"
              body: "*"
          };
     };
 
     rpc DeleteAreaByID(google.protobuf.StringValue ) returns (google.protobuf.Empty){
         option ( google.api.http ) = {
-          delete: "/v1/areas/{value}"
+          delete: "/areas/{value}"
         };
     };
     rpc FindAreas(google.protobuf.StringValue ) returns (AreasList){
          option (google.api.http) = {
-             get: "/v1/areas-find-by-text/{value}"
+             get: "/areas-find-by-text/{value}"
          };
     };
 
     rpc FindAreasBy( AreaSearchCriteria ) returns (AreasList) {
         option (google.api.http) = {
-             post: "/v1/areas-find-by"
+             post: "/areas-find-by"
              body: "*"
          };
     };

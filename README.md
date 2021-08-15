@@ -29,7 +29,7 @@ Note: every change should update version number, no snapshots!
 Note: to avoid version number change we can remove artifacts from repo:  http://localhost:8081/#browse/browse
 
     cd interface
-    ./build-stubs.sh
+    ./build.sh
     
 that generates server side implementation stubs and client, plus versioned 
 documentation in html and markdown formats. HTML documentation is publisheable

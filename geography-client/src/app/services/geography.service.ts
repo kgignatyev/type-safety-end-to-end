@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import {ConfigurationService} from "./configuration.service";
-import {GeographyClient} from "@kgi/geography-interface/geography_pb_service";
-import {Area, AreasList, LatLng, Polygon} from "@kgi/geography-interface/geography_pb";
-import {AutzService} from "./autz.service";
-import {ServiceBase} from "./ServiceBase";
+import {ConfigurationService} from './configuration.service';
+import {AutzService} from './autz.service';
+import {ServiceBase} from './ServiceBase';
+import {Area, AreasList, LatLng, Polygon} from '@kgi/geography-interface/geography_pb';
+import {GeographyClient} from '@kgi/geography-interface/geography_grpc_web_pb';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeographyService extends ServiceBase {
   private geographyClient: GeographyClient;
+
 
 
   getCentroidFor( poly: Polygon ): LatLng {
@@ -41,9 +42,9 @@ export class GeographyService extends ServiceBase {
     return res;
   }
 
-  constructor( public configService: ConfigurationService, private authzSvc: AutzService ) {
-    super();
-    this.geographyClient = new GeographyClient( configService.getGeographyServiceURL())
+  constructor( public configService: ConfigurationService, public authzSvc: AutzService ) {
+    super(authzSvc);
+    this.geographyClient = new GeographyClient( configService.getGeographyServiceURL());
   }
 
 
@@ -65,7 +66,7 @@ export class GeographyService extends ServiceBase {
     } );
   }
 
-  async getAreaById(areaId: string):  Promise< Area > {
+  async getAreaById(areaId: string): Promise< Area > {
     return new Promise( ( resolve, reject ) => {
       this.geographyClient.getAreaByID ( this.stringValueOf(areaId), this.authzSvc.grpcMetadata(), this.makeHandler( resolve, reject ) );
     } );

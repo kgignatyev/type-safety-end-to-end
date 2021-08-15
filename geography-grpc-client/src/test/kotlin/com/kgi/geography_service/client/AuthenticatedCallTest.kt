@@ -1,7 +1,6 @@
 package com.kgi.geography_service.client
 
 import com.google.protobuf.StringValue
-import org.junit.Assert.assertEquals
 import kgi.geography_api.GeographyGrpc
 import org.junit.Before
 import org.junit.Test

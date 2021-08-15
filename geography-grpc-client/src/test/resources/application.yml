@@ -7,7 +7,7 @@ grpc:
       negotiationType: plaintext
 
     geography-grpc-server-auth:
-      address: 'static://localhost:9090'
+      address: 'static://localhost:8080'
 #      address: 'static://geography:80'
       enableKeepAlive: true
       keepAliveWithoutCalls: true
