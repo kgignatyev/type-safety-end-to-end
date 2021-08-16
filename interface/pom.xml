@@ -6,7 +6,7 @@
 
     <groupId>com.kgi</groupId>
     <artifactId>geography-interface</artifactId>
-    <version>1.0.12</version>
+    <version>1.0.14</version>
     <packaging>jar</packaging>
 
     <prerequisites>

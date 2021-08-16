@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {GeographyService} from "../../services/geography.service";
-import {Area} from "@kgi/geography-interface/geography_pb";
+import {GeographyService} from '../../services/geography.service';
+import {Area} from '@kgi/geography-interface/geography_pb';
 
 @Component({
   selector: 'app-areas',
@@ -14,9 +14,9 @@ export class AreasComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      const areas = await this.geographySvc.findAreas('')
+      const areas = await this.geographySvc.findAreas('');
       this.areas = areas.getItemsList();
-    }catch (e) {
+    } catch (e) {
       this.areas = [];
     }
 

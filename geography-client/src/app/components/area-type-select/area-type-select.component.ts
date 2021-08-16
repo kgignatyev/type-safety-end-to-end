@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Area, AreaType} from "@kgi/geography-interface/geography_pb";
+import {Area, AreaType} from '@kgi/geography-interface/geography_pb';
 
 
 @Component({
@@ -16,19 +16,21 @@ export class AreaTypeSelectComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log( this.keys)
+    console.log( this.keys);
   }
 
   setAreaType(typeKey: any) {
+    // @ts-ignore
     this.area.setAreaType( this.at[typeKey] );
+    // tslint:disable-next-line:no-console
     console.info(typeKey);
   }
 
   getAreaType() {
-    if( this.area ) {
-      return this.keys[this.area.getAreaType()]
-    }else {
-      return this.keys[0]
+    if ( this.area ) {
+      return this.keys[this.area.getAreaType()];
+    } else {
+      return this.keys[0];
     }
   }
 }

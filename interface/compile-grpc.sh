@@ -3,7 +3,7 @@ set -e
 
 export PROTOS_SRC_DIR=src/main/proto
 export TS_OUT=target/npm
-export INTERFACE_VERSION=1.0.12
+export INTERFACE_VERSION=1.0.14
 export INTERFACE_NAME=geography-interface
 export PROTOS=geography.proto
 export PWD=$(pwd)

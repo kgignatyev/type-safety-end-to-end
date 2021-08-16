@@ -44,7 +44,7 @@ class AuthenticatedCallTest {
            CallContext._currentUser.get().jwt = ""
            testWithStub(connectors.geographyAuthServiceStub)
        }
-       println( "Got exeception as expected:${exception}" )
+       println( "Got exception as expected:${exception}" )
 
     }
 

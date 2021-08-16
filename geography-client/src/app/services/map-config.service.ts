@@ -10,7 +10,7 @@ export class MapConfigService implements LazyMapsAPILoaderConfigLiteral {
   public apiKey: string;
   public libraries: string[];
   constructor() {
-    this.apiKey = environment.google_api_key;
+    this.apiKey = environment.googleApiKey;
     this.libraries = ['places', 'drawing', 'geometry'];
     console.log('lazy map init with ' + this.apiKey);
   }

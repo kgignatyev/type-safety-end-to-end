@@ -1,10 +1,10 @@
 import {Component, Input, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {GeographyService} from "../../services/geography.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Area, LatLng, Polygon} from "@kgi/geography-interface/geography_pb";
-import {Subscription} from "rxjs";
-import {LatLngLiteral, PolygonOptions} from "@agm/core/services/google-maps-types";
-import {AgmDrawingManager} from "@agm/drawing";
+import {GeographyService} from '../../services/geography.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Area, LatLng, Polygon} from '@kgi/geography-interface/geography_pb';
+import {Subscription} from 'rxjs';
+import {LatLngLiteral, PolygonOptions} from '@agm/core/services/google-maps-types';
+import {AgmDrawingManager} from '@agm/drawing';
 
 declare const google: any;
 
@@ -13,6 +13,13 @@ declare const google: any;
   templateUrl: './area.component.html'
 })
 export class AreaComponent implements OnInit, OnDestroy {
+
+
+
+
+  constructor(private geographySvc: GeographyService, public route: ActivatedRoute, public router: Router, private ngZone: NgZone) {
+  }
+
 
   area: Area;
   sub: Subscription;
@@ -28,30 +35,14 @@ export class AreaComponent implements OnInit, OnDestroy {
   @ViewChild(AgmDrawingManager, {static: true})
   agmDrawingManager: AgmDrawingManager;
 
-
-
-
-  constructor(private geographySvc: GeographyService, public route: ActivatedRoute, public router: Router, private ngZone: NgZone) {
-  }
-
-  ngOnInit() {
-    this.subscribeToRouteParams();
-    window['angularComponentReference'] = { component: this, zone: this.ngZone, readNewPath: () => this.updatePolygonPaths(), };
-
-  }
-
-  newArea() {
-    return new Area();
-  }
-
   polygon: google.maps.Polygon;
 
 
   polyOptions: PolygonOptions = {
     draggable: true,
     editable: true,
-    paths: [new Point(1,1),new Point(1,2),new Point(2,2),new Point(1,2),new Point(1,1)]
-  }
+    paths: [new Point(1, 1), new Point(1, 2), new Point(2, 2), new Point(1, 2), new Point(1, 1)]
+  };
 
   managerOptions = {
     drawingControl: true,
@@ -59,7 +50,7 @@ export class AreaComponent implements OnInit, OnDestroy {
       drawingModes: ['polygon']
     },
     polygonOptions: this.polyOptions,
-    drawingMode: "polygon"
+    drawingMode: 'polygon'
   };
 
 
@@ -74,6 +65,17 @@ export class AreaComponent implements OnInit, OnDestroy {
     visible: true
   };
 
+  ngOnInit() {
+    this.subscribeToRouteParams();
+    // @ts-ignore
+    window.angularComponentReference = { component: this, zone: this.ngZone, readNewPath: () => this.updatePolygonPaths(), };
+
+  }
+
+  newArea() {
+    return new Area();
+  }
+
   polygonCreated($event) {
 
     if (this.polygon) {
@@ -81,38 +83,41 @@ export class AreaComponent implements OnInit, OnDestroy {
     }
     this.polygon = $event;
     this.addPolygonChangeEvent(this.polygon);
-    google.maps.event.addListener(this.polygon, 'coordinates_changed', function (index, obj) {
+    // tslint:disable-next-line:only-arrow-functions
+    google.maps.event.addListener(this.polygon, 'coordinates_changed', function(index, obj) {
       // Polygon object: yourPolygon
       // debugger
-      window['angularComponentReference'].zone.run(() => { window['angularComponentReference'].readNewPath(); });
+      // @ts-ignore
+      window.angularComponentReference.zone.run(() => { window.angularComponentReference.readNewPath(); });
       console.log('coordinates_changed:');
     });
     this.updatePolygonPaths();
   }
 
-  updatePolygonPaths():Array<LatLng> {
-    console.log("get path");
-    let path:Array<LatLng> = [];
+  updatePolygonPaths(): Array<LatLng> {
+    console.log('get path');
+    const path: Array<LatLng> = [];
     if (this.polygon) {
       const vertices = this.polygon.getPaths().getArray()[0];
 
-      vertices.getArray().forEach(function (xy, i) {
+      vertices.getArray().forEach((xy, i) => {
         const p = new LatLng();
         p.setLat(xy.lat());
         p.setLng(xy.lng());
         path.push(p);
       });
     }
-    const poly = new Polygon()
+    const poly = new Polygon();
     poly.setVerticesList( path );
-    this.area.setPolygon(poly )
-    return path
+    this.area.setPolygon(poly );
+    return path;
   }
 
   addPolygonChangeEvent(polygon) {
-    var me = polygon,
-      isBeingDragged = false,
-      triggerCoordinatesChanged = function () {
+    const me = polygon;
+    let  isBeingDragged = false;
+      // tslint:disable-next-line:only-arrow-functions
+    const triggerCoordinatesChanged = function() {
         // Broadcast normalized event
         google.maps.event.trigger(me, 'coordinates_changed');
       };
@@ -120,44 +125,43 @@ export class AreaComponent implements OnInit, OnDestroy {
     // If  the overlay is being dragged, set_at gets called repeatedly,
     // so either we can debounce that or igore while dragging,
     // ignoring is more efficient
-    google.maps.event.addListener(me, 'dragstart', function () {
+    google.maps.event.addListener(me, 'dragstart', () => {
       isBeingDragged = true;
     });
 
     // If the overlay is dragged
-    google.maps.event.addListener(me, 'dragend', function () {
+    google.maps.event.addListener(me, 'dragend', () => {
       triggerCoordinatesChanged();
       isBeingDragged = false;
     });
 
     // Or vertices are added to any of the possible paths, or deleted
-    var paths = me.getPaths();
-    paths.forEach(function (path, i) {
-      google.maps.event.addListener(path, "insert_at", function () {
+    const paths = me.getPaths();
+    paths.forEach((path, i) => {
+      google.maps.event.addListener(path, 'insert_at', () => {
         triggerCoordinatesChanged();
       });
-      google.maps.event.addListener(path, "set_at", function () {
+      google.maps.event.addListener(path, 'set_at', () => {
         if (!isBeingDragged) {
           triggerCoordinatesChanged();
         }
       });
-      google.maps.event.addListener(path, "remove_at", function () {
+      google.maps.event.addListener(path, 'remove_at', () => {
         triggerCoordinatesChanged();
       });
     });
-  };
-
+  }
   subscribeToRouteParams() {
     this.sub = this.route.params.subscribe(async params => {
-      let areaId = params.id;
+      const areaId = params.id;
       if (areaId) {
-        if ('new' == areaId) {
-          this.area = this.newArea()
+        if ('new' === areaId) {
+          this.area = this.newArea();
         } else {
           this.area = await this.geographySvc.getAreaById(areaId);
         }
       } else {
-        this.area = this.newArea()
+        this.area = this.newArea();
       }
       this.drawArea();
     });
@@ -169,17 +173,17 @@ export class AreaComponent implements OnInit, OnDestroy {
   }
 
   isNewArea() {
-    return this.area.getId() == '';
+    return this.area.getId() === '';
   }
 
   async save() {
 
     if (this.isNewArea()) {
-      this.area = await this.geographySvc.createArea(this.area)
+      this.area = await this.geographySvc.createArea(this.area);
     } else {
-      this.area = await this.geographySvc.updateArea(this.area)
+      this.area = await this.geographySvc.updateArea(this.area);
     }
-    this.close()
+    this.close();
   }
 
   ngOnDestroy(): void {
@@ -191,10 +195,10 @@ export class AreaComponent implements OnInit, OnDestroy {
     this.drawArea();
   }
 
-  drawArea(){
-    if( this.area && this.map ){
+  drawArea() {
+    if ( this.area && this.map ) {
       const vertices = this.area.getPolygon().getVerticesList().map( point => new Point( point.getLat(), point.getLng() ) );
-      this.agmPolyPaths = vertices
+      this.agmPolyPaths = vertices;
       const polygon = new google.maps.Polygon();
 
       polygon.setPath( vertices );
@@ -202,7 +206,7 @@ export class AreaComponent implements OnInit, OnDestroy {
       polygon.setMap( this.map);
 
       if (vertices.length > 0) {
-        const cetroid = this.geographySvc.getCentroidFor(  this.area.getPolygon() )
+        const cetroid = this.geographySvc.getCentroidFor(  this.area.getPolygon() );
         this.centerLng = cetroid.getLng();
         this.centerLat = cetroid.getLat();
       }
@@ -215,8 +219,9 @@ export class AreaComponent implements OnInit, OnDestroy {
   }
 
   polyPathsChange($event: any) {
-    console.info($event)
-    console.info(this.updatePolygonPaths())
+    // tslint:disable:no-console
+    console.info($event);
+    console.info(this.updatePolygonPaths());
   }
 }
 

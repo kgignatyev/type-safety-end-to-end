@@ -4,7 +4,6 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {UUID} from 'angular2-uuid';
 import { AuthService } from '@auth0/auth0-angular';
 import * as grpc from 'grpc-web';
-import grpcWeb from 'grpc-web';
 import { environment as env } from '../../environments/environment';
 
 @Injectable({
@@ -16,7 +15,7 @@ export class AutzService implements CanActivate {
   public token$ = new BehaviorSubject<any>( null);
   public isAuthenticated = false;
 
-  constructor( public authService:AuthService, private router: Router) {
+  constructor( public authService: AuthService, private router: Router) {
     authService.user$.subscribe( u => this.user$.next( u ));
     authService.idTokenClaims$.subscribe( t => {
       // tslint:disable-next-line:no-console
@@ -28,17 +27,19 @@ export class AutzService implements CanActivate {
   }
 
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.token$.getValue() || route.pathFromRoot.length==0 ){
-      return this.pathAllowed( route );
-    }  else {
-      return this.router.parseUrl('/login-required');
-    }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot ):
+      Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return true;
+    // if (this.token$.getValue() || route.pathFromRoot.length === 0 ) {
+    //   return this.pathAllowed( route );
+    // }  else {
+    //   return this.router.parseUrl('/login-required');
+    // }
   }
 
 
   grpcMetadata(): grpc.Metadata {
-    const m = {} as grpcWeb.Metadata;
+    const m = {} as grpc.Metadata;
     // debugger
     m.Authorization = 'Bearer ' + this.token$.value?.__raw;
     let uuid = UUID.UUID();
@@ -47,7 +48,8 @@ export class AutzService implements CanActivate {
     return m;
   }
 
-  private pathAllowed(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
+
+  private pathAllowed(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // debugger
     // console.info( route)
     const routePath = route.url.map( segment => segment.path ).join('/');

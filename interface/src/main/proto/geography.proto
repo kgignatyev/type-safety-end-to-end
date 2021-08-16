@@ -5,10 +5,10 @@ option java_package = "kgi.geography_api";
 option go_package = "./;kgi_geography_api";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
-import "google/api/annotations.proto";
-import "protoc-gen-openapiv2/options/annotations.proto";
+//import "google/api/annotations.proto";
+/*import "protoc-gen-openapiv2/options/annotations.proto";
 
-/*
+
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
     title: "Geography";
@@ -68,48 +68,48 @@ message AreaSearchCriteria {
 }
 service Geography {
     rpc CreateArea (Area) returns (Area) {
-        option ( google.api.http ) = {
-          post: "/areas"
-          body: "*"
-        };
+//        option ( google.api.http ) = {
+//          post: "/api/v1/geography/areas"
+//          body: "*"
+//        };
     };
     rpc GetAreaByID (google.protobuf.StringValue) returns (Area) {
-        option (google.api.http) = {
-             get: "/areas/{value}"
-         };
+//        option (google.api.http) = {
+//             get: "/api/v1/geography/areas/{value}"
+//         };
     };
 
     rpc UpdateArea (Area) returns (Area) {
-        option ( google.api.http ) = {
-          put: "/areas"
-          body: "*"
-        };
+//        option ( google.api.http ) = {
+//          put: "/api/v1/geography/areas"
+//          body: "*"
+//        };
     };
     // deprecated, use FindAreasBy
     rpc FindAreasContaining( LatLng ) returns (AreasList) {
         option deprecated = true;
-        option (google.api.http) = {
-             post: "/areas-find-containing"
-             body: "*"
-         };
+//        option (google.api.http) = {
+//             post: "/api/v1/geography/areas-find-containing"
+//             body: "*"
+//         };
     };
 
     rpc DeleteAreaByID(google.protobuf.StringValue ) returns (google.protobuf.Empty){
-        option ( google.api.http ) = {
-          delete: "/areas/{value}"
-        };
+//        option ( google.api.http ) = {
+//          delete: "/api/v1/geography/areas/{value}"
+//        };
     };
     rpc FindAreas(google.protobuf.StringValue ) returns (AreasList){
-         option (google.api.http) = {
-             get: "/areas-find-by-text/{value}"
-         };
+//         option (google.api.http) = {
+//             get: "/api/v1/geography/areas-find-by-text/{value}"
+//         };
     };
 
     rpc FindAreasBy( AreaSearchCriteria ) returns (AreasList) {
-        option (google.api.http) = {
-             post: "/areas-find-by"
-             body: "*"
-         };
+//        option (google.api.http) = {
+//             post: "/api/v1/geography/areas-find-by"
+//             body: "*"
+//         };
     };
 }
 
