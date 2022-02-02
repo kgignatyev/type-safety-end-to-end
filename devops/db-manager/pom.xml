@@ -14,7 +14,7 @@
 
     <properties>
         <flyway.version>6.3.3</flyway.version>
-        <postgresql.version>42.2.12</postgresql.version>
+        <postgresql.version>42.2.25</postgresql.version>
         <migration.jdbc-url>jdbc:postgresql://127.0.0.1:5432/set-me</migration.jdbc-url>
         <migration.db-user>set-user</migration.db-user>
         <migration.db-password>set-password</migration.db-password>
