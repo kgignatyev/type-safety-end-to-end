@@ -51,7 +51,7 @@
     <plugin.surefire>2.22.2</plugin.surefire>
     <plugin.tomcat7>2.2</plugin.tomcat7>
     <plugin.git-commit.version>4.0.0</plugin.git-commit.version>
-    <postgresql.version>42.2.14</postgresql.version>
+    <postgresql.version>42.3.3</postgresql.version>
     <slf4j-version>1.7.24</slf4j-version>
     <failIfNoTests>false</failIfNoTests>
     <!--kotlin dependencies-->
